@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador com Autocompletar</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+<body>
+    <h1>Buscador com Autocompletar</h1>
+    <input type="text" id="search-input" placeholder="Digite para buscar">
+    <ul id="search-results"></ul>
+    <script>
+        $(document).ready(function () {
+            $('#search-input').on('input', function () {
+                var query = $(this).val();
+                if (query.length >= 3) {
+                    $.ajax({
+                        url: '/search?q=' + query,
+                        type: 'GET',
+                        success: function (data) {
+                            displayResults(data);
+                        }
+                    });
+                } else {
+                    $('#search-results').empty();
+                }
+            });
+
+            function displayResults(results) {
+                var resultList = $('#search-results');
+                resultList.empty();
+                results.forEach(function (result) {
+                    resultList.append('<li>' + result + '</li>');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
