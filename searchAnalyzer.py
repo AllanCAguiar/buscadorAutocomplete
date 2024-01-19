@@ -29,6 +29,7 @@ def search():
     result = es.search(index='buscas', body=body)  
     hits = result['hits']['hits']
     results = [hit['_source']['texto'] for hit in hits]
+    print(result['took'])
     return jsonify(results)
 
 if __name__ == '__main__':
