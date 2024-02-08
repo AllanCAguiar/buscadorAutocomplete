@@ -7,7 +7,7 @@ if es.ping():
 else:
     print("Falha na conexão com o Elasticsearch")
 
-index_name = 'buscasSuggester'
+index_name = 'buscas_suggester'
 
 settings = {
     "mappings": {
@@ -19,11 +19,14 @@ settings = {
                         "type": "completion"
                     }
                 }
+            },
+            "peso": {
+                "type": "integer"
             }
         }
     }
 }
 
 
-es.indices.create(index=index_name, body=settings, ignore=400)
+print(es.indices.create(index=index_name, body=settings, ignore=400))
 
